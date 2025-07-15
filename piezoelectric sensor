@@ -1,0 +1,31 @@
+#define PIEZO_SENSOR_PIN 2  // GPIO2 (D2 on many boards)
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(PIEZO_SENSOR_PIN, INPUT);
+}
+
+void loop() {
+  int sensorValue = analogRead(PIEZO_SENSOR_PIN); // read analog value from piezo sensor
+
+  Serial.print("Piezo sensor reading = ");
+  Serial.print(sensorValue);
+
+  if (sensorValue < 10) {
+    Serial.println(" -> no impact");
+  } 
+  else if (sensorValue < 200) {
+    Serial.println(" -> very light tap");
+  } 
+  else if (sensorValue < 500) {
+    Serial.println(" -> light tap");
+  } 
+  else if (sensorValue < 800) {
+    Serial.println(" -> medium tap");
+  } 
+  else {
+    Serial.println(" -> hard impact");
+  }
+
+  delay(100); // shorter delay to catch quick impacts
+}
